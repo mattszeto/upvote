@@ -1,6 +1,7 @@
 # upvote
 forums website using react / node / postgresql
 
+## CURRENTLY UNDER DEVELOPMENT
 
 How to properly set up dev enviornment:
 
