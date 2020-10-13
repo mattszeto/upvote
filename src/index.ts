@@ -9,12 +9,12 @@ import { HelloResolver } from "./resolvers/hello";
 import { PostResolver } from "./resolvers/post";
 
 
-
+// main function for adding MikroORM to connect to postgreSQL (can see sql under the hood)
 const main = async () => {
-
-    const orm = await MikroORM.init(microConfig);
-    await orm.getMigrator().up();
-
+    
+    const orm = await MikroORM.init(microConfig); // connect to database
+    await orm.getMigrator().up(); //run migrations
+    // run SQL
     // const post = orm.em.create(Post, {title: 'my first post'});
     // await orm.em.persistAndFlush(post);
     // const posts = await orm.em.find(Post, {});
@@ -30,6 +30,7 @@ const main = async () => {
         context: () => ({ em: orm.em })
     });
 
+    // create graphql endpoint in express
     apolloServer.applyMiddleware({ app });
 
     app.listen(4000, () => {

@@ -3,6 +3,9 @@ import { Post } from "./entities/Post";
 import { MikroORM } from "@mikro-orm/core";
 import path from 'path';
 
+
+// configuration for microORM's postgreSQL local server
+
 export default {
     migrations: {
         path: path.join(__dirname, "./migrations"), 

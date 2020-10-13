@@ -12,6 +12,7 @@ export class PostResolver {
         return em.find(Post, {});
     }
 
+    // find post using id as parameter
     @Query(() => Post, { nullable: true })
     post(
         @Arg("id", () => Int)  id: number,
@@ -21,7 +22,7 @@ export class PostResolver {
     }
 
     //mutation updates data
-    //create posts
+    //create posts using title as an argument
     @Mutation(() => Post)
     async createPost(
         @Arg("title")  title: string,
@@ -31,7 +32,7 @@ export class PostResolver {
         await em.persistAndFlush(post);
         return post;
     }
-
+    // update posts fetch with post id and update title
     @Mutation(() => Post, {nullable: true})
     async updatePost(
         @Arg("id") id: number,
@@ -39,9 +40,11 @@ export class PostResolver {
         @Ctx() {em}: MyContext 
     ): Promise<Post | null> {
         const post = await em.findOne(Post, {id});
+        // if no post then return null
         if (!post) {
             return null;
         }
+        // update w new title if given a title
         if (typeof title !== 'undefined') {
             post.title = title
             await em.persistAndFlush(post);
