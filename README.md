@@ -4,7 +4,7 @@ forums website using react / next.js / node / express / postgresql / graphql / r
 
 ## CURRENTLY UNDER DEVELOPMENT
 
-##### How to properly set up dev enviornment:
+##### SERVER - How to properly set up dev environment:
 
 1. open a terminal and type 'yarn watch'
    (this is so typescript is converted to javascript)
@@ -24,3 +24,9 @@ forums website using react / next.js / node / express / postgresql / graphql / r
    3. enter in password
 
    - should say `Starting redis-server: redis-server.`
+
+##### CLIENT - How to properly set up dev environment:
+
+1. cd into client
+2. `yarn dev`
+3. http://localhost:3000
