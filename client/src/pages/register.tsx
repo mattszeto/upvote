@@ -38,8 +38,7 @@ const Register: React.FC<registerProps> = ({}) => {
         initialValues={{ username: "", password: "" }}
         onSubmit={(values) => {
           return register(values);
-        }}
-      >
+        }}>
         {({ isSubmitting }) => (
           <Form>
             <InputField
@@ -59,8 +58,7 @@ const Register: React.FC<registerProps> = ({}) => {
               mt={4}
               type="submit"
               isLoading={isSubmitting}
-              variantColor="teal"
-            >
+              variantColor="teal">
               Register
             </Button>
           </Form>
