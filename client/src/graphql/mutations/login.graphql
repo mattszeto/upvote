@@ -1,0 +1,14 @@
+mutation Login($options: UsernamePasswordInput!) {
+  login(options: $options) {
+    errors {
+      field
+      message
+    }
+    user {
+      id
+      username
+    }
+  }
+}
+
+# same thing (as register) but different way of doing the graphql mutation
