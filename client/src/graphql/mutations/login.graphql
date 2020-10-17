@@ -5,10 +5,7 @@ mutation Login($options: UsernamePasswordInput!) {
       message
     }
     user {
-      id
-      username
+      ...RegularUser
     }
   }
 }
-
-# same thing (as register) but different way of doing the graphql mutation

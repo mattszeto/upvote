@@ -17,8 +17,9 @@ const Login: React.FC<{}> = ({}) => {
         initialValues={{ username: "", password: "" }}
         onSubmit={async (values, { setErrors }) => {
           const response = await login({ options: values });
+
+          console.log(response);
           if (response.data?.login.errors) {
-            [{ field: "username", message: "something wrong" }];
             setErrors(toErrorMap(response.data.login.errors));
           } else if (response.data?.login.user) {
             // register has been a success and user has been found
