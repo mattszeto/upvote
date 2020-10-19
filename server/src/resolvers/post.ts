@@ -2,8 +2,6 @@ import { Resolver, Query, Ctx, Arg, Mutation } from "type-graphql";
 import { Post } from "../entities/Post";
 import { MyContext } from "src/types";
 
-const sleep = (ms: number) => new Promise((res) => setTimeout(res, ms));
-
 //Post CRUD operation, creates a post specific to URL
 
 @Resolver()
