@@ -38,7 +38,6 @@ const Register: React.FC<registerProps> = ({}) => {
           const response = await register({ options: values });
           console.log(response);
           if (response.data?.register.errors) {
-            [{ field: "username", message: "something wrong" }];
             setErrors(toErrorMap(response.data.register.errors));
           } else if (response.data?.register.user) {
             // register has been a success and user has been found
