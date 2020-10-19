@@ -13,10 +13,13 @@ import { HelloResolver } from "./resolvers/hello";
 import { PostResolver } from "./resolvers/post";
 import { UserResolver } from "./resolvers/user";
 import cors from "cors";
+import { sendEmail } from "./utils/sendEmail";
+import { User } from "./entities/User";
 
 // main function for adding MikroORM to connect to postgreSQL (can see sql under the hood)
 const main = async () => {
   const orm = await MikroORM.init(microConfig); // connect to database
+  //await orm.em.nativeDelete(User, {}); //delete all Users
   await orm.getMigrator().up(); //run migrations
   // run SQL
   // const post = orm.em.create(Post, {title: 'my first post'});

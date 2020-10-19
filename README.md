@@ -14,6 +14,8 @@ forums website using react / next.js / node / express / postgresql / graphql / r
    ##### Setting up Postgresql DB (must have postgresql database server already installed):
 
    1. connect to PostgreSQL database server using psql
+   2. create/enter in credentials
+   3. add credentials to `mikro-orm.config.ts`
 
    ##### Setting up Redis server (must have redis installed, using WSL on windows to run Redis server on a Ubuntu terminal)
 
