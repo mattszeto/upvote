@@ -1,7 +1,6 @@
 import "reflect-metadata";
-import { MikroORM } from "@mikro-orm/core";
 import { COOKIE_NAME, __prod__ } from "./constants";
-import microConfig from "./mikro-orm.config";
+
 import express from "express";
 import Redis from "ioredis";
 import session from "express-session";
@@ -13,17 +12,22 @@ import { HelloResolver } from "./resolvers/hello";
 import { PostResolver } from "./resolvers/post";
 import { UserResolver } from "./resolvers/user";
 import cors from "cors";
+import { createConnection } from "typeorm";
+import { Post } from "./entities/Post";
+import { User } from "./entities/User";
+import { PSQL_PASSWORD } from "./config";
 
 // main function for adding MikroORM to connect to postgreSQL (can see sql under the hood)
 const main = async () => {
-  const orm = await MikroORM.init(microConfig); // connect to database
-  //await orm.em.nativeDelete(User, {}); //delete all Users
-  await orm.getMigrator().up(); //run migrations
-  // run SQL
-  // const post = orm.em.create(Post, {title: 'my first post'});
-  // await orm.em.persistAndFlush(post);
-  // const posts = await orm.em.find(Post, {});
-  // console.log(posts);
+  const conn = await createConnection({
+    type: "postgres",
+    database: "upvote",
+    username: "postgres",
+    password: PSQL_PASSWORD,
+    logging: true,
+    synchronize: true,
+    entities: [Post, User],
+  });
 
   const app = express();
 
@@ -61,7 +65,7 @@ const main = async () => {
       resolvers: [HelloResolver, PostResolver, UserResolver],
       validate: false,
     }),
-    context: ({ req, res }) => ({ em: orm.em, req, res, redis }),
+    context: ({ req, res }) => ({ req, res, redis }),
   });
 
   // create graphql endpoint in express
