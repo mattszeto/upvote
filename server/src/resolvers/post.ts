@@ -1,3 +1,5 @@
+import { isAuth } from "../middleware/isAuth";
+import { MyContext } from "src/types";
 import {
   Resolver,
   Query,
@@ -5,6 +7,9 @@ import {
   Mutation,
   Field,
   ObjectType,
+  InputType,
+  Ctx,
+  UseMiddleware,
 } from "type-graphql";
 import { getConnection } from "typeorm";
 import { Post } from "../entities/Post";
@@ -13,6 +18,14 @@ import { Post } from "../entities/Post";
 class PostResponse {
   @Field(() => Post, { nullable: true })
   post?: Post;
+}
+
+@InputType()
+class PostInput {
+  @Field()
+  title: string;
+  @Field()
+  text: string;
 }
 
 //Post CRUD operation, creates a post specific to URL
@@ -33,7 +46,11 @@ export class PostResolver {
   //mutation updates data
   //create posts using title as an argument
   @Mutation(() => PostResponse)
-  async createPost(@Arg("title") title: string): Promise<PostResponse> {
+  @UseMiddleware(isAuth)
+  async createPost(
+    @Arg("input") input: PostInput,
+    @Ctx() { req }: MyContext
+  ): Promise<PostResponse> {
     // two sql queries, one to insert, one to select
     let post;
     try {
@@ -42,7 +59,8 @@ export class PostResolver {
         .insert()
         .into(Post)
         .values({
-          title: title,
+          ...input,
+          creatorId: req.session!.userId,
         })
         .returning("*")
         .execute();

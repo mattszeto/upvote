@@ -21,11 +21,13 @@ const Login: React.FC<{}> = ({}) => {
         onSubmit={async (values, { setErrors }) => {
           const response = await login(values);
 
-          console.log(response);
           if (response.data?.login.errors) {
             setErrors(toErrorMap(response.data.login.errors));
           } else if (response.data?.login.user) {
             // register has been a success and user has been found
+            if (typeof router.query.next === "string") {
+              router.push(router.query.next || "/");
+            }
             router.push("/");
           }
         }}>
