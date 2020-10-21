@@ -1,6 +1,6 @@
 # upvote
 
-forums website using react / next.js / node / express / postgresql / graphql / redis
+social sharing, forums, and blog website using react / next.js / node / express / postgresql / graphql / redis / typeorm
 
 ## CURRENTLY UNDER DEVELOPMENT
 
@@ -15,7 +15,7 @@ forums website using react / next.js / node / express / postgresql / graphql / r
 
    1. connect to PostgreSQL database server using psql
    2. create/enter in credentials
-   3. add credentials to `mikro-orm.config.ts`
+   3. add credentials to `server/src/index.ts` (optional to set-up a config.ts to store password)
 
    ##### Setting up Redis server (must have redis installed, using WSL on windows to run Redis server on a Ubuntu terminal)
 
@@ -26,6 +26,8 @@ forums website using react / next.js / node / express / postgresql / graphql / r
    3. enter in password
 
    - should say `Starting redis-server: redis-server.`
+
+   GraphQL server should run on http://localhost:4000/graphql
 
 #### CLIENT - How to properly set up dev environment:
 
