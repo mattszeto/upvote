@@ -16,6 +16,7 @@ import { createConnection } from "typeorm";
 import { Post } from "./entities/Post";
 import { User } from "./entities/User";
 import { PSQL_PASSWORD } from "./config";
+import path from "path";
 
 // main function for adding MikroORM to connect to postgreSQL (can see sql under the hood)
 const main = async () => {
@@ -26,9 +27,11 @@ const main = async () => {
     password: PSQL_PASSWORD,
     logging: true,
     synchronize: true,
+    migrations: [path.join(__dirname, "./migrations/*")],
     entities: [Post, User],
   });
 
+  conn.runMigrations();
   // await Post.delete({}); delete all posts
   const app = express();
 
