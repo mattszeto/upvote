@@ -17,6 +17,7 @@ import { Post } from "./entities/Post";
 import { User } from "./entities/User";
 import { PSQL_PASSWORD } from "./config";
 import path from "path";
+import { Yup } from "./entities/Yup";
 
 // main function for adding MikroORM to connect to postgreSQL (can see sql under the hood)
 const main = async () => {
@@ -28,7 +29,7 @@ const main = async () => {
     logging: true,
     synchronize: true,
     migrations: [path.join(__dirname, "./migrations/*")],
-    entities: [Post, User],
+    entities: [Post, User, Yup],
   });
 
   await conn.runMigrations();

@@ -5,10 +5,12 @@ import {
   CreateDateColumn,
   Entity,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from "typeorm";
 import { User } from "./User";
+import { Yup } from "./Yup";
 
 @ObjectType()
 @Entity()
@@ -33,8 +35,12 @@ export class Post extends BaseEntity {
   @Column()
   creatorId: number;
 
+  @Field()
   @ManyToOne(() => User, (user) => user.posts)
   creator: User;
+
+  @OneToMany(() => Yup, (yup) => yup.post)
+  yups: Yup[];
 
   @Field(() => String)
   @CreateDateColumn()
