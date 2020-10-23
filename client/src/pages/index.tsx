@@ -35,10 +35,7 @@ const Index = () => {
   return (
     <Layout>
       <Flex align="center">
-        <Heading>upvote</Heading>
-        <NextLink href="/create-post">
-          <Link ml="auto">Create Post</Link>
-        </NextLink>
+        <Heading fontSize="25px">explore</Heading>
       </Flex>
 
       <br />
@@ -50,7 +47,11 @@ const Index = () => {
             <Flex key={p.id} p={5} shadow="md" borderWidth="1px">
               <YupSection post={p} />
               <Box>
-                <Heading fontSize="xl">{p.title}</Heading>
+                <NextLink href="/post/[id]" as={`/post/${p.id}`}>
+                  <Link>
+                    <Heading fontSize="xl">{p.title}</Heading>
+                  </Link>
+                </NextLink>
                 <Text>posted by {p.creator.username}</Text>
                 <Text mt={4}>{p.textSnippet}</Text>
               </Box>
