@@ -23,6 +23,8 @@ export class Yup extends BaseEntity {
   @PrimaryColumn()
   postId: number;
 
-  @ManyToOne(() => Post, (post) => post.yups)
+  @ManyToOne(() => Post, (post) => post.yups, {
+    onDelete: "CASCADE", // cascade delete
+  })
   post: Post;
 }
