@@ -49,7 +49,7 @@ const EditPost = ({}) => {
             id: intId,
             ...values,
           });
-          router.push("/");
+          router.back();
         }}>
         {({ isSubmitting }) => (
           <Form>

@@ -18,6 +18,8 @@ import { User } from "./entities/User";
 import { PSQL_PASSWORD } from "./config";
 import path from "path";
 import { Yup } from "./entities/Yup";
+import { createUserLoader } from "./utils/createUserLoader";
+import { createYupLoader } from "./utils/createYupLoader";
 
 // main function for adding MikroORM to connect to postgreSQL (can see sql under the hood)
 const main = async () => {
@@ -71,7 +73,13 @@ const main = async () => {
       resolvers: [HelloResolver, PostResolver, UserResolver],
       validate: false,
     }),
-    context: ({ req, res }) => ({ req, res, redis }),
+    context: ({ req, res }) => ({
+      req,
+      res,
+      redis,
+      userLoader: createUserLoader(),
+      yupLoader: createYupLoader(),
+    }),
   });
 
   // create graphql endpoint in express
