@@ -4,3 +4,7 @@
 /dist
 
 config.ts
+
+.env
+
+ormconfig.json

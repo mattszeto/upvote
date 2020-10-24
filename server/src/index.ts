@@ -1,4 +1,5 @@
 import "reflect-metadata";
+import "dotenv-safe/config";
 import { COOKIE_NAME, __prod__ } from "./constants";
 
 import express from "express";
@@ -15,7 +16,6 @@ import cors from "cors";
 import { createConnection } from "typeorm";
 import { Post } from "./entities/Post";
 import { User } from "./entities/User";
-import { PSQL_PASSWORD } from "./config";
 import path from "path";
 import { Yup } from "./entities/Yup";
 import { createUserLoader } from "./utils/createUserLoader";
@@ -25,11 +25,9 @@ import { createYupLoader } from "./utils/createYupLoader";
 const main = async () => {
   const conn = await createConnection({
     type: "postgres",
-    database: "upvote",
-    username: "postgres",
-    password: PSQL_PASSWORD,
+    url: process.env.DATABASE_URL,
     logging: true,
-    synchronize: true,
+    // synchronize: true,
     migrations: [path.join(__dirname, "./migrations/*")],
     entities: [Post, User, Yup],
   });
@@ -40,11 +38,13 @@ const main = async () => {
   const app = express();
 
   const RedisStore = connectRedis(session);
-  const redis = new Redis();
+  const redis = new Redis(process.env.REDIS_URL);
+
+  app.set("proxy", 1); // need to tell express we have a proxy so that cookies and sessions work
 
   app.use(
     cors({
-      origin: "http://localhost:3000",
+      origin: process.env.CORS_ORIGIN,
       credentials: true,
     })
   );
@@ -61,9 +61,10 @@ const main = async () => {
         httpOnly: true,
         sameSite: "lax", // protecting csrf
         secure: __prod__, // cookie only works in https
+        // domain: __prod__ ? '.codeponder.com' : undefined,
       },
       saveUninitialized: false,
-      secret: "serhew4t3w4dfgssdfha",
+      secret: process.env.SESSION_SECRET,
       resave: false,
     })
   );
@@ -88,8 +89,8 @@ const main = async () => {
     cors: false,
   });
 
-  app.listen(4000, () => {
-    console.log("server started on localhost:4000");
+  app.listen(parseInt(process.env.PORT), () => {
+    console.log(`server started on localhost:${process.env.PORT}`);
   });
 };
 
