@@ -5,14 +5,18 @@ export type WrapperVariant = "small" | "regular";
 
 interface WrapperProps {
   variant?: WrapperVariant;
+  bgColor?: string;
 }
 
 export const Wrapper: React.FC<WrapperProps> = ({
   children,
   variant = "regular",
+  bgColor,
 }) => {
   return (
     <Box
+      bg={bgColor}
+      fontFamily="'Menlo', monospace"
       mt={8}
       mx="auto"
       maxW={variant === "regular" ? "800px" : "300px"}

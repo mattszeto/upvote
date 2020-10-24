@@ -25,7 +25,9 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
     body = (
       <>
         <NextLink href="/login">
-          <Link mr={2}>Login</Link>
+          <Button mr={4} as={Link}>
+            Login
+          </Button>
         </NextLink>
         <NextLink href="/register">
           <Link>Register</Link>
@@ -36,12 +38,7 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
   } else {
     body = (
       <Flex align="center">
-        <NextLink href="/create-post">
-          <Button as={Link} mr={4}>
-            Create Post
-          </Button>
-        </NextLink>
-        <Box mr={2}>{data.me.username}</Box>
+        <Box mr={4}>{data.me.username}</Box>
         <Button
           onClick={async () => {
             await logout();
@@ -56,11 +53,17 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
   }
 
   return (
-    <Flex zIndex={1} position="sticky" top={0} bg="tan" p={4}>
+    <Flex
+      zIndex={1}
+      position="sticky"
+      top={0}
+      bg="white"
+      p={4}
+      fontFamily="monospace">
       <Flex flex={1} m="auto" align="center" maxW={800}>
         <NextLink href="/">
           <Link>
-            <Heading>upvote</Heading>
+            <Heading fontFamily="monospace">yup·vote</Heading>
           </Link>
         </NextLink>
         <Box ml={"auto"}>{body}</Box>

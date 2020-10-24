@@ -32,7 +32,7 @@ const main = async () => {
     entities: [Post, User, Yup],
   });
 
-  await conn.runMigrations();
+  //await conn.runMigrations();
 
   //await Post.delete({}); //delete all posts
   const app = express();
@@ -40,15 +40,17 @@ const main = async () => {
   const RedisStore = connectRedis(session);
   const redis = new Redis(process.env.REDIS_URL);
 
-  app.set("proxy", 1); // need to tell express we have a proxy so that cookies and sessions work
+  app.set("trust proxy", 1); // need to tell express we have a proxy so that cookies and sessions work
 
   app.use(
     cors({
       origin: process.env.CORS_ORIGIN,
+      optionsSuccessStatus: 200,
       credentials: true,
     })
   );
 
+  console.log("prod:", __prod__);
   app.use(
     session({
       name: COOKIE_NAME,
@@ -57,10 +59,11 @@ const main = async () => {
         disableTouch: true,
       }),
       cookie: {
-        maxAge: 1000 * 60 * 60 * 24 * 365 * 10, // 10 years
+        maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
         httpOnly: true,
         sameSite: "lax", // protecting csrf
         secure: __prod__, // cookie only works in https
+        domain: __prod__ ? ".yupvote.net" : undefined,
         // domain: __prod__ ? '.codeponder.com' : undefined,
       },
       saveUninitialized: false,

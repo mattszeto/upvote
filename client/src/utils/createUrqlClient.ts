@@ -42,7 +42,6 @@ const cursorPagination = (): Resolver => {
     // entity key is query, fieldName is posts
     const { parentKey: entityKey, fieldName } = info;
     const allFields = cache.inspectFields(entityKey); // get all fields under the query in the cache
-    console.log("allFields: ", allFields);
     const fieldInfos = allFields.filter((info) => info.fieldName === fieldName); // making sure its a posts
     const size = fieldInfos.length;
     if (size === 0) {
@@ -91,8 +90,9 @@ export const createUrqlClient = (ssrExchange: any, ctx: any) => {
   if (isServer()) {
     cookie = ctx?.req?.headers?.cookie;
   }
+  console.log(process.env.NEXT_PUBLIC_API_URL);
   return {
-    url: "http://localhost:4000/graphql",
+    url: process.env.NEXT_PUBLIC_API_URL as string,
     fetchOptions: {
       credentials: "include" as const,
       headers: cookie

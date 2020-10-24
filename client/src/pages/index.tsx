@@ -1,22 +1,8 @@
 import { withUrqlClient } from "next-urql";
 import { createUrqlClient } from "../utils/createUrqlClient";
-import {
-  useDeletePostMutation,
-  useMeQuery,
-  usePostsQuery,
-} from "../generated/graphql";
+import { usePostsQuery } from "../generated/graphql";
 import { Layout } from "../components/Layout";
-import {
-  Box,
-  Button,
-  Flex,
-  Heading,
-  Icon,
-  IconButton,
-  Link,
-  Stack,
-  Text,
-} from "@chakra-ui/core";
+import { Box, Button, Flex, Heading, Link, Stack, Text } from "@chakra-ui/core";
 import NextLink from "next/link";
 import React, { useState } from "react";
 import { YupSection } from "../components/YupSection";
@@ -31,16 +17,21 @@ const Index = () => {
     variables,
   });
 
-  console.log(variables);
-
   if (!fetching && !data) {
     return <div>{error?.message}</div>;
   }
 
   return (
     <Layout>
-      <Flex align="center">
-        <Heading fontSize="25px">explore</Heading>
+      <Flex align="center" ml={10}>
+        <Heading fontSize="24px" fontFamily="monospace">
+          Home
+        </Heading>
+        <NextLink href="/create-post">
+          <Button as={Link} mr={4} ml="auto">
+            Create Post
+          </Button>
+        </NextLink>
       </Flex>
 
       <br />
@@ -50,17 +41,29 @@ const Index = () => {
         <Stack spacing={8}>
           {data!.posts.posts.map((p) =>
             !p ? null : (
-              <Flex key={p.id} p={5} shadow="md" borderWidth="1px">
+              <Flex
+                key={p.id}
+                p={4}
+                m={4}
+                shadow="md"
+                borderWidth="1px"
+                borderRadius="md">
                 <YupSection post={p} />
                 <Box flex={1}>
                   <NextLink href="/post/[id]" as={`/post/${p.id}`}>
                     <Link>
-                      <Heading fontSize="xl">{p.title}</Heading>
+                      <Heading fontSize="xl" fontFamily="monospace">
+                        {p.title}
+                      </Heading>
                     </Link>
                   </NextLink>
-                  <Text>posted by {p.creator.username}</Text>
+                  <Text fontSize="13px" fontFamily="monospace">
+                    posted by {p.creator.username}
+                  </Text>
                   <Flex align="center">
-                    <Text mt={4}>{p.textSnippet}</Text>
+                    <Text mt={4} fontFamily="monospace">
+                      {p.textSnippet}
+                    </Text>
 
                     <Box ml="auto">
                       <EditDeletePostButtons
