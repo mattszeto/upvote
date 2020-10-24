@@ -1,6 +1,9 @@
-# upvote
+# yupvote
+https://yupvote.net (try it out!)
 
 social sharing, forums, and blog website using react / next.js / node / express / postgresql / graphql / redis / typeorm
+- back-end deployed using dokku and docker
+- front-end deployed using vercel
 
 ## CURRENTLY UNDER DEVELOPMENT
 
