@@ -112,22 +112,38 @@ const Index = () => {
           )}
         </Stack>
       )}
-      {data && data.posts.hasMore ? (
-        <Flex>
-          <Button
-            onClick={() => {
-              setVariables({
-                limit: variables.limit,
-                cursor: data.posts.posts[data.posts.posts.length - 1].createdAt,
-              });
-            }}
-            isLoading={fetching}
-            m="auto"
-            my={8}>
-            Load More
-          </Button>
-        </Flex>
-      ) : null}
+
+      <Flex>
+        {data && data.posts.hasMore ? (
+          <Flex flex={1} alignContent="center" my={4}>
+            <Button
+              onClick={() => {
+                setVariables({
+                  limit: variables.limit,
+                  cursor:
+                    data.posts.posts[data.posts.posts.length - 1].createdAt,
+                });
+              }}
+              isLoading={fetching}>
+              Load More
+            </Button>
+          </Flex>
+        ) : null}
+        <Link
+          my={4}
+          ml="auto"
+          href="https://github.com/mattszeto/upvote"
+          fontSize="11px"
+          opacity={0.8}>
+          view on
+          <Icon
+            m={2}
+            aria-label="Github"
+            name={"github" as any}
+            fontSize="20px"
+          />
+        </Link>
+      </Flex>
     </Layout>
   );
 };

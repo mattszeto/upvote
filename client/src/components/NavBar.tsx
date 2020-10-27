@@ -100,6 +100,7 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
             <Heading fontFamily="monospace">yup·vote</Heading>
           </Link>
         </NextLink>
+
         <Box ml={"auto"}>{body}</Box>
 
         {!data?.me ? null : (
