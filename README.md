@@ -5,7 +5,7 @@ social sharing, forums, and blog website using react / next.js / node / express 
 - back-end deployed using dokku and docker
 - front-end deployed using vercel
 
-## CURRENTLY UNDER DEVELOPMENT
+### Contribute?
 
 #### SERVER - How to properly set up dev environment:
 
