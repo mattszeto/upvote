@@ -1,4 +1,4 @@
-import { Box, Button } from "@chakra-ui/core";
+import { Box, Button, Icon } from "@chakra-ui/core";
 import { Formik, Form } from "formik";
 import { withUrqlClient } from "next-urql";
 import { useRouter } from "next/router";
@@ -25,7 +25,7 @@ const EditPost = ({}) => {
   if (fetching) {
     return (
       <Layout>
-        <div>loading...</div>
+        <Icon name="spinner" />
       </Layout>
     );
   }

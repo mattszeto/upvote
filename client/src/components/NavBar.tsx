@@ -1,4 +1,18 @@
-import { Box, Button, Flex, Heading, Link } from "@chakra-ui/core";
+import {
+  Box,
+  Button,
+  Flex,
+  Heading,
+  Link,
+  Drawer,
+  DrawerBody,
+  DrawerContent,
+  DrawerHeader,
+  DrawerOverlay,
+  useDisclosure,
+  IconButton,
+  Text,
+} from "@chakra-ui/core";
 import React from "react";
 import NextLink from "next/link";
 import { useLogoutMutation, useMeQuery } from "../generated/graphql";
@@ -15,40 +29,60 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
     // if you remove it will make request from server
     pause: isServer(),
   });
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   let body = null;
 
-  // data is loading
   if (fetching) {
+  } // data is loading
+  if (!data?.me) {
     // user not logged in
-  } else if (!data?.me) {
     body = (
       <>
         <NextLink href="/login">
-          <Button mr={4} as={Link}>
+          <Link mr={4}>Login</Link>
+        </NextLink>
+        <NextLink href="/register">
+          <Button width="90px" as={Link} variantColor="teal">
+            Register
+          </Button>
+        </NextLink>
+      </>
+    );
+  } else {
+    // user is logged in
+    body = (
+      <Flex align="center">
+        <Box mr={2}>user/{data.me.username}</Box>
+      </Flex>
+    );
+  }
+  // change login & register buttons to be animated
+  if (!data?.me && router.pathname.includes("/login")) {
+    body = (
+      <>
+        <NextLink href="/login">
+          <Button width="90px" mr={4} as={Link} variantColor="teal">
             Login
           </Button>
         </NextLink>
         <NextLink href="/register">
           <Link>Register</Link>
-        </NextLink>{" "}
+        </NextLink>
       </>
     );
-    // user is logged in
-  } else {
+  } else if (!data?.me && router.pathname.includes("/register")) {
     body = (
-      <Flex align="center">
-        <Box mr={4}>{data.me.username}</Box>
-        <Button
-          onClick={async () => {
-            await logout();
-            router.reload();
-          }}
-          isLoading={logoutFetching}
-          variant="link">
-          Logout
-        </Button>
-      </Flex>
+      <>
+        <NextLink href="/login">
+          <Link mr={4}>Login</Link>
+        </NextLink>
+        <NextLink href="/register">
+          <Button width="90px" as={Link} variantColor="teal">
+            Register
+          </Button>
+        </NextLink>
+      </>
     );
   }
 
@@ -67,6 +101,43 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
           </Link>
         </NextLink>
         <Box ml={"auto"}>{body}</Box>
+
+        {!data?.me ? null : (
+          <IconButton
+            onClick={onOpen}
+            aria-label="User Settings"
+            icon="settings"
+            size="sm"
+            variant="ghost"
+            isRound={true}
+          />
+        )}
+        <Drawer placement="top" onClose={onClose} isOpen={isOpen} size="xs">
+          <DrawerOverlay />
+          <DrawerContent fontFamily="monospace">
+            <DrawerHeader>
+              <Flex flex={1} align="center">
+                <Text>{data?.me?.username}</Text>
+                <Button p={2} ml="auto" h="30px" variant="solid">
+                  Profile
+                </Button>
+                <Button
+                  p={2}
+                  ml={4}
+                  h="30px"
+                  onClick={async () => {
+                    await logout();
+                    router.reload();
+                  }}
+                  isLoading={logoutFetching}
+                  variant="solid">
+                  Logout
+                </Button>
+              </Flex>
+            </DrawerHeader>
+            <DrawerBody textAlign="center"></DrawerBody>
+          </DrawerContent>
+        </Drawer>
       </Flex>
     </Flex>
   );

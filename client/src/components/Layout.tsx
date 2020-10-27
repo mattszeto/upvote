@@ -1,3 +1,4 @@
+import { DarkMode, LightMode } from "@chakra-ui/core";
 import React from "react";
 import { NavBar } from "./NavBar";
 import { Wrapper, WrapperVariant } from "./Wrapper";

@@ -148,7 +148,7 @@ export type UsernamePasswordInput = {
 
 export type PostSnippetFragment = (
   { __typename?: 'Post' }
-  & Pick<Post, 'id' | 'createdAt' | 'updatedAt' | 'points' | 'title' | 'textSnippet' | 'voteStatus'>
+  & Pick<Post, 'id' | 'createdAt' | 'updatedAt' | 'points' | 'title' | 'text' | 'textSnippet' | 'voteStatus'>
   & { creator: (
     { __typename?: 'User' }
     & Pick<User, 'id' | 'username'>
@@ -272,7 +272,7 @@ export type UpdatePostMutation = (
   { __typename?: 'Mutation' }
   & { updatePost?: Maybe<(
     { __typename?: 'Post' }
-    & Pick<Post, 'id' | 'title' | 'text'>
+    & Pick<Post, 'id' | 'title' | 'text' | 'textSnippet'>
   )> }
 );
 
@@ -340,6 +340,7 @@ export const PostSnippetFragmentDoc = gql`
   updatedAt
   points
   title
+  text
   textSnippet
   voteStatus
   creator {
@@ -456,6 +457,7 @@ export const UpdatePostDocument = gql`
     id
     title
     text
+    textSnippet
   }
 }
     `;

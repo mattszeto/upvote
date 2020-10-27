@@ -29,12 +29,14 @@ export const YupSection: React.FC<YupSectionProps> = ({ post }) => {
           });
           setLoadingState("not-loading");
         }}
-        variantColor={post.voteStatus === 1 ? "blue" : undefined}
+        variantColor={post.voteStatus === 1 ? "teal" : "lightbrown"}
         isLoading={loadingState === "yup-loading"}
         aria-label="yup"
         icon="chevron-up"
         size="md"
+        fontSize="24px"
         variant="ghost"
+        isRound={true}
       />
       {post.points}
       <IconButton
@@ -50,12 +52,14 @@ export const YupSection: React.FC<YupSectionProps> = ({ post }) => {
 
           setLoadingState("not-loading");
         }}
-        variantColor={post.voteStatus === -1 ? "orange" : undefined}
+        variantColor={post.voteStatus === -1 ? "orange" : "lightbrown"}
         isLoading={loadingState === "down-loading"}
         aria-label="down"
         icon="chevron-down"
         size="md"
+        fontSize="24px"
         variant="ghost"
+        isRound={true}
       />
     </Flex>
   );

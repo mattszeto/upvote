@@ -1,6 +1,6 @@
 import React from "react";
 import { Form, Formik } from "formik";
-import { Box, Button } from "@chakra-ui/core";
+import { Box, Button, Heading } from "@chakra-ui/core";
 import { Wrapper } from "../components/Wrapper";
 import { InputField } from "../components/InputField";
 import { useRegisterMutation } from "../generated/graphql";
@@ -8,6 +8,7 @@ import { toErrorMap } from "../utils/toErrorMap";
 import { useRouter } from "next/router";
 import { createUrqlClient } from "../utils/createUrqlClient";
 import { withUrqlClient } from "next-urql";
+import { Layout } from "../components/Layout";
 
 interface registerProps {}
 
@@ -31,48 +32,54 @@ const Register: React.FC<registerProps> = ({}) => {
   const [, register] = useRegisterMutation();
 
   return (
-    <Wrapper variant="small">
-      <Formik
-        initialValues={{ email: "", username: "", password: "" }}
-        onSubmit={async (values, { setErrors }) => {
-          const response = await register({ options: values });
-          console.log(response);
-          if (response.data?.register.errors) {
-            setErrors(toErrorMap(response.data.register.errors));
-          } else if (response.data?.register.user) {
-            // register has been a success and user has been found
-            router.push("/");
-          }
-        }}>
-        {({ isSubmitting }) => (
-          <Form>
-            <InputField
-              name="username"
-              placeholder="username"
-              label="Username"
-            />
-            <Box mt={4}>
-              <InputField name="email" placeholder="email" label="Email" />
-            </Box>
-            <Box mt={4}>
+    <Layout>
+      <Wrapper variant="small">
+        <Heading mb={4} fontSize="35px" fontFamily="monospace">
+          Register
+        </Heading>
+        <Formik
+          initialValues={{ email: "", username: "", password: "" }}
+          onSubmit={async (values, { setErrors }) => {
+            const response = await register({ options: values });
+            console.log(response);
+            if (response.data?.register.errors) {
+              setErrors(toErrorMap(response.data.register.errors));
+            } else if (response.data?.register.user) {
+              // register has been a success and user has been found
+              router.push("/");
+            }
+          }}>
+          {({ isSubmitting }) => (
+            <Form>
               <InputField
-                name="password"
-                placeholder="password"
-                label="Password"
-                type="password"
+                name="username"
+                placeholder="username"
+                label="username"
               />
-            </Box>
-            <Button
-              mt={4}
-              type="submit"
-              isLoading={isSubmitting}
-              variantColor="teal">
-              Register
-            </Button>
-          </Form>
-        )}
-      </Formik>
-    </Wrapper>
+              <Box mt={2}>
+                <InputField name="email" placeholder="email" label="email" />
+              </Box>
+              <Box mt={2}>
+                <InputField
+                  name="password"
+                  placeholder="password"
+                  label="password"
+                  type="password"
+                />
+              </Box>
+              <Button
+                width="100%"
+                mt={4}
+                type="submit"
+                isLoading={isSubmitting}
+                variantColor="orange">
+                Register
+              </Button>
+            </Form>
+          )}
+        </Formik>
+      </Wrapper>
+    </Layout>
   );
 };
 

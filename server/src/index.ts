@@ -51,6 +51,7 @@ const main = async () => {
   );
 
   console.log("prod:", __prod__);
+
   app.use(
     session({
       name: COOKIE_NAME,
