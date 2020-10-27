@@ -34,7 +34,7 @@ const Register: React.FC<registerProps> = ({}) => {
   return (
     <Layout>
       <Wrapper variant="small">
-        <Heading mb={4} fontSize="35px" fontFamily="monospace">
+        <Heading mb={4} fontSize="35px">
           Register
         </Heading>
         <Formik

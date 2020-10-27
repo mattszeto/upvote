@@ -87,17 +87,11 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
   }
 
   return (
-    <Flex
-      zIndex={1}
-      position="sticky"
-      top={0}
-      bg="white"
-      p={4}
-      fontFamily="monospace">
+    <Flex zIndex={1} position="sticky" top={0} bg="white" p={4}>
       <Flex flex={1} m="auto" align="center" maxW={800}>
         <NextLink href="/">
           <Link>
-            <Heading fontFamily="monospace">yup·vote</Heading>
+            <Heading>yup·vote</Heading>
           </Link>
         </NextLink>
 
@@ -115,7 +109,7 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
         )}
         <Drawer placement="top" onClose={onClose} isOpen={isOpen} size="xs">
           <DrawerOverlay />
-          <DrawerContent fontFamily="monospace">
+          <DrawerContent>
             <DrawerHeader>
               <Flex flex={1} align="center">
                 <Text>{data?.me?.username}</Text>

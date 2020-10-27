@@ -37,9 +37,7 @@ const Index = () => {
   return (
     <Layout>
       <Flex align="center" ml={8}>
-        <Heading fontSize="24px" fontFamily="monospace">
-          Home
-        </Heading>
+        <Heading fontSize="24px">Home</Heading>
         {!meData?.me ? null : (
           <NextLink href="/create-post">
             <IconButton
@@ -78,22 +76,17 @@ const Index = () => {
                       as={Link}
                       variant="link"
                       variantColor="darkbrown">
-                      <Heading fontSize="xl" fontFamily="monospace">
-                        {p.title}
-                      </Heading>
+                      <Heading fontSize="md">{p.title}</Heading>
                     </Button>
                   </NextLink>
-                  <Text
-                    fontSize="11px"
-                    fontWeight="light"
-                    fontFamily="monospace"
-                    pl={2}>
+                  <Text fontSize="xs" pl={2} opacity={0.8}>
                     user/{p.creator.username}
                   </Text>
                   <Flex>
                     <Text
+                      fontSize="14px"
                       mt={2}
-                      fontFamily="monospace"
+                      fontWeight="medium"
                       w={width <= 350 ? "50%" : "70%"}>
                       {p.textSnippet}
                       {/* if snippet doesnt show all text, then display '...' to indicate more text*/}

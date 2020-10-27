@@ -18,7 +18,7 @@ const Login: React.FC<{}> = ({}) => {
   return (
     <Layout>
       <Wrapper variant="small">
-        <Heading mb={4} fontSize="35px" fontFamily="monospace">
+        <Heading mb={4} fontSize="35px">
           Login
         </Heading>
         <Formik
