@@ -112,7 +112,8 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
           <DrawerContent>
             <DrawerHeader>
               <Flex flex={1} align="center">
-                <Text>{data?.me?.username}</Text>
+                <Text mr={2}>{data?.me?.username}:</Text>
+                <Text> {data?.me?.about}</Text>
                 <Button p={2} ml="auto" h="30px" variant="solid">
                   Profile
                 </Button>

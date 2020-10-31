@@ -10,6 +10,8 @@ import {
   Query,
   FieldResolver,
   Root,
+  UseMiddleware,
+  Int,
 } from "type-graphql";
 
 import argon2 from "argon2";
@@ -19,6 +21,7 @@ import { validateRegister } from "../utils/validateRegister";
 import { sendEmail } from "../utils/sendEmail";
 import { v4 } from "uuid";
 import { getConnection } from "typeorm";
+import { isAuth } from "../middleware/isAuth";
 
 @ObjectType()
 class FieldError {
@@ -40,6 +43,25 @@ class UserResponse {
 
 @Resolver(User)
 export class UserResolver {
+  @Mutation(() => User, { nullable: true })
+  @UseMiddleware(isAuth)
+  async updateUser(
+    @Arg("about", () => String) about: string,
+    @Ctx() { req }: MyContext
+  ): Promise<User | null> {
+    const result = await getConnection()
+      .createQueryBuilder()
+      .update(User)
+      .set({ about })
+      .where("id = :id", {
+        id: req.session!.userId,
+      })
+      .returning("*")
+      .execute();
+
+    return result.raw[0];
+  }
+
   @FieldResolver(() => String)
   email(@Root() user: User, @Ctx() { req }: MyContext) {
     // this is current user, okay to show their own email

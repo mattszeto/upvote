@@ -56,6 +56,7 @@ export type User = {
   id: Scalars['Float'];
   username: Scalars['String'];
   email: Scalars['String'];
+  about: Scalars['String'];
   createdAt: Scalars['String'];
   updatedAt: Scalars['String'];
 };
@@ -66,6 +67,7 @@ export type Mutation = {
   createPost: PostResponse;
   updatePost?: Maybe<Post>;
   deletePost: Scalars['Boolean'];
+  updateUser?: Maybe<User>;
   changePassword: UserResponse;
   forgotPassword: Scalars['Boolean'];
   register: UserResponse;
@@ -94,6 +96,11 @@ export type MutationUpdatePostArgs = {
 
 export type MutationDeletePostArgs = {
   id: Scalars['Int'];
+};
+
+
+export type MutationUpdateUserArgs = {
+  about: Scalars['String'];
 };
 
 
@@ -162,7 +169,7 @@ export type RegularErrorFragment = (
 
 export type RegularUserFragment = (
   { __typename?: 'User' }
-  & Pick<User, 'id' | 'username'>
+  & Pick<User, 'id' | 'username' | 'about'>
 );
 
 export type RegularUserResponseFragment = (
@@ -294,7 +301,7 @@ export type MeQuery = (
   { __typename?: 'Query' }
   & { me?: Maybe<(
     { __typename?: 'User' }
-    & Pick<User, 'id' | 'username'>
+    & Pick<User, 'id' | 'username' | 'about'>
   )> }
 );
 
@@ -359,6 +366,7 @@ export const RegularUserFragmentDoc = gql`
     fragment RegularUser on User {
   id
   username
+  about
 }
     `;
 export const RegularUserResponseFragmentDoc = gql`
@@ -479,6 +487,7 @@ export const MeDocument = gql`
   me {
     id
     username
+    about
   }
 }
     `;

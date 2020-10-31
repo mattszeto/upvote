@@ -3,7 +3,7 @@ import theme from "../theme";
 
 function MyApp({ Component, pageProps }: any) {
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={theme as any}>
       <CSSReset />
       <Component {...pageProps} />
     </ThemeProvider>
