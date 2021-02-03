@@ -27,14 +27,16 @@ const main = async () => {
     type: "postgres",
     url: process.env.DATABASE_URL,
     logging: true,
-    //synchronize: true, // true for dev, off for prod
+    synchronize: true, // true for dev, off for prod
     migrations: [path.join(__dirname, "./migrations/*")],
     entities: [Post, User, Yup],
   });
   await conn.runMigrations();
 
-  // await Post.delete({}); //delete all posts
-  // await User.delete({});
+  //await Post.delete({}); //delete all posts
+  //await User.delete({});
+  //await Yup.delete({});
+
   const app = express();
 
   const RedisStore = connectRedis(session);
