@@ -1,7 +1,6 @@
 # yupvote
 
-~~https://yupvote.net (try it out and earn some yups!)~~
-Website is currently down (cost reasons, but you can run it locally by following the steps below!)
+https://yupvote.net (try it out and earn some yups!)
 
 ### What is yupvote?
 
