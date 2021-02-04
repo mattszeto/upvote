@@ -2,6 +2,8 @@
 
 https://yupvote.net (try it out and earn some yups!)
 
+![homepage](https://github.com/mattszeto/images-collection/blob/master/yupvote/yupvote-screenshot.png?raw=true)
+
 ### What is yupvote?
 
 social sharing, forums, and blog website using react / next.js / node / express / postgresql / graphql / redis / typeorm
