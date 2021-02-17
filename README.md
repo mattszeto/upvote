@@ -6,7 +6,17 @@ https://yupvote.net (try it out and earn some yups!)
 
 ### What is yupvote?
 
-social sharing, forums, and blog website using react / next.js / node / express / postgresql / graphql / redis / typeorm
+social sharing, forums, and blog website
+
+Technologies Used:
+- react (frontend)
+- next.js (frontend)
+- node (server)
+- express (server)
+- postgresql (database)
+- graphql (api)
+- redis (session store)
+- typeorm (querying)
 
 - back-end deployed using dokku and docker
 - front-end deployed using vercel
