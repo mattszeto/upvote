@@ -1,5 +1,7 @@
 # yupvote
 
+## SADLY WEBSITE IS NO LONGER ACTIVE... thanks to everyone who used this platform!!!
+
 https://yupvote.net (try it out and earn some yups!)
 
 ![homepage](https://github.com/mattszeto/images-collection/blob/master/yupvote/yupvote-screenshot.png?raw=true)
